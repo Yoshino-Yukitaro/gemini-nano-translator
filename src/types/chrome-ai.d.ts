@@ -1,22 +1,31 @@
 declare global {
   const Translator: {
-    availability: (options: TranslationOptions) => Promise<TranslatorCapabilities>;
+    availability: (
+      options: TranslationOptions,
+    ) => Promise<TranslatorCapabilities>;
     create: (options: TranslationOptions) => Promise<Translator>;
   };
-  
+
   interface SummarizerMonitor {
-    addEventListener(event: 'downloadprogress', callback: (e: DownloadProgressEvent) => void): void;
+    addEventListener(
+      event: "downloadprogress",
+      callback: (e: DownloadProgressEvent) => void,
+    ): void;
   }
-  
+
   interface DownloadProgressEvent {
-    loaded: number;  // Progress as a decimal (0-1)
+    loaded: number; // Progress as a decimal (0-1)
   }
-  
+
   const Summarizer: {
     availability: () => Promise<SummarizerCapabilities>;
-    create: (options?: SummarizerOptions & { monitor?: (m: SummarizerMonitor) => void }) => Promise<Summarizer>;
+    create: (
+      options?: SummarizerOptions & {
+        monitor?: (m: SummarizerMonitor) => void;
+      },
+    ) => Promise<Summarizer>;
   };
-  
+
   interface Window {
     ai?: {
       languageDetector?: {
@@ -32,10 +41,14 @@ declare global {
   }
 
   interface TranslatorCapabilities {
-    available: 'available' | 'downloadable' | 'downloading' | 'unavailable';
+    available: "available" | "downloadable" | "downloading" | "unavailable";
   }
 
-  type TranslationAvailability = 'available' | 'downloadable' | 'downloading' | 'unavailable';
+  type TranslationAvailability =
+    | "available"
+    | "downloadable"
+    | "downloading"
+    | "unavailable";
 
   interface Translator {
     translate: (text: string) => Promise<string>;
@@ -44,13 +57,13 @@ declare global {
   }
 
   interface SummarizerCapabilities {
-    available: 'available' | 'downloadable' | 'downloading' | 'unavailable';
+    available: "available" | "downloadable" | "downloading" | "unavailable";
   }
 
   interface SummarizerOptions {
-    type?: 'tldr' | 'key-points' | 'teaser' | 'headline';
-    format?: 'plain-text' | 'markdown';
-    length?: 'short' | 'medium' | 'long';
+    type?: "tldr" | "key-points" | "teaser" | "headline";
+    format?: "plain-text" | "markdown";
+    length?: "short" | "medium" | "long";
   }
 
   interface Summarizer {
@@ -60,13 +73,15 @@ declare global {
   }
 
   interface LanguageDetector {
-    detect: (text: string) => Promise<Array<{ detectedLanguage: string; confidence: number }>>;
+    detect: (
+      text: string,
+    ) => Promise<Array<{ detectedLanguage: string; confidence: number }>>;
     ready?: Promise<void>;
     destroy: () => void;
   }
 
   interface LanguageDetectorCapabilities {
-    available: 'readily' | 'after-download' | 'no';
+    available: "readily" | "after-download" | "no";
   }
 }
 
