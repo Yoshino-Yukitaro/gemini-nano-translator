@@ -16,7 +16,6 @@ export const useTranslator = () => {
   useEffect(() => {
     const initTranslator = async () => {
       const status = await checkAvailability();
-      console.log('Translator initial status:', status);
       
       if (status === 'available') {
         try {
@@ -25,10 +24,6 @@ export const useTranslator = () => {
         } catch (error) {
           console.error('Failed to create translator:', error);
         }
-      } else if (status === 'downloadable') {
-        console.log('Translator model needs download');
-      } else if (status === 'downloading') {
-        console.log('Translator model is downloading');
       }
     };
     

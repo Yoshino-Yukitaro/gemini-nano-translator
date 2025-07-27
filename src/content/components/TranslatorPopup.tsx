@@ -32,11 +32,6 @@ const TranslatorPopup: React.FC<TranslatorPopupProps> = ({ selectedText, onClose
     downloadModel: downloadSummarizerModel
   } = useSummarizer();
   
-  // デバッグ用
-  console.log('Translator availability:', translatorAvailability);
-  console.log('Summarizer availability:', summarizerAvailability);
-  console.log('Can download translator:', canDownloadTranslator);
-  console.log('Can download summarizer:', canDownloadSummarizer);
   
   const handleTranslate = async () => {
     setIsLoading(true);

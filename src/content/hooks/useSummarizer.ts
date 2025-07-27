@@ -17,7 +17,6 @@ export const useSummarizer = () => {
   useEffect(() => {
     const initSummarizer = async () => {
       const status = await checkAvailability();
-      console.log('Summarizer initial status:', status);
       
       if (status === 'available') {
         try {
@@ -35,10 +34,6 @@ export const useSummarizer = () => {
         } catch (error) {
           console.error('Failed to create summarizer:', error);
         }
-      } else if (status === 'downloadable') {
-        console.log('Summarizer model needs download');
-      } else if (status === 'downloading') {
-        console.log('Summarizer model is downloading');
       }
     };
     
@@ -72,7 +67,6 @@ export const useSummarizer = () => {
       
       // ダウンロード完了後、再度availabilityを確認
       const newStatus = await checkAvailability();
-      console.log('Summarizer status after download:', newStatus);
       
       if (newStatus === 'available') {
         // Also create translator for Japanese translation

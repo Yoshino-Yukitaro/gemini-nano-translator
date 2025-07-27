@@ -2,11 +2,7 @@ import { translationCache, summaryCache } from './cache';
 
 // 翻訳API関連
 export async function checkTranslatorAvailability(): Promise<TranslationAvailability> {
-  console.log('Checking translator availability...');
-  console.log('Translator in self:', 'Translator' in self);
-  
   if (!('Translator' in self)) {
-    console.log('Translator API not found');
     return 'unavailable';
   }
   
@@ -16,7 +12,6 @@ export async function checkTranslatorAvailability(): Promise<TranslationAvailabi
       targetLanguage: 'ja'
     });
     
-    console.log('Translator availability result:', result);
     
     // 直接文字列として返される場合
     if (typeof result === 'string') {
@@ -28,7 +23,6 @@ export async function checkTranslatorAvailability(): Promise<TranslationAvailabi
       return result.available;
     }
     
-    console.log('Unexpected result format:', result);
     return 'unavailable';
   } catch (error) {
     console.error('Translation availability check failed:', error);
@@ -64,17 +58,12 @@ export async function createTranslator(): Promise<Translator> {
 
 // 要約API関連
 export async function checkSummarizerAvailability(): Promise<'available' | 'downloadable' | 'downloading' | 'unavailable'> {
-  console.log('Checking summarizer availability...');
-  console.log('Summarizer in self:', 'Summarizer' in self);
-  
   if (!('Summarizer' in self)) {
-    console.log('Summarizer API not found');
     return 'unavailable';
   }
   
   try {
     const result = await Summarizer.availability();
-    console.log('Summarizer availability result:', result);
     
     // 直接文字列として返される場合
     if (typeof result === 'string') {
@@ -86,7 +75,6 @@ export async function checkSummarizerAvailability(): Promise<'available' | 'down
       return result.available;
     }
     
-    console.log('Unexpected result format:', result);
     return 'unavailable';
   } catch (error) {
     console.error('Summarizer availability check failed:', error);
@@ -108,7 +96,6 @@ export async function createSummarizer(onProgress?: (progress: number) => void):
   if (onProgress) {
     options.monitor = (m: SummarizerMonitor) => {
       m.addEventListener('downloadprogress', (e) => {
-        console.log(`Summarizer download progress: ${e.loaded * 100}%`);
         onProgress(e.loaded * 100);
       });
     };
